@@ -1,0 +1,2 @@
+Invoking command in '/home/guy/ros2_ws/build/examples_rclcpp_minimal_client': /usr/bin/cmake /home/guy/ros2_ws/src/examples/rclcpp/services/minimal_client -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/guy/ros2_ws/install/examples_rclcpp_minimal_client
+Invoked command in '/home/guy/ros2_ws/build/examples_rclcpp_minimal_client' returned '1': /usr/bin/cmake /home/guy/ros2_ws/src/examples/rclcpp/services/minimal_client -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/guy/ros2_ws/install/examples_rclcpp_minimal_client

@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-0207fcf85f1b4a819b07.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "examples_rclcpp_minimal_subscriber",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "examples_rclcpp_minimal_subscriber_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-examples_rclcpp_minimal_subscriber_uninstall-54f7dc8793d52b2f8190.json",
+					"name" : "examples_rclcpp_minimal_subscriber_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "static_wait_set_subscriber::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-static_wait_set_subscriber-e4dfeb34cfac467cfd96.json",
+					"name" : "static_wait_set_subscriber",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_content_filtering::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_content_filtering-0122b395fab4827ece6d.json",
+					"name" : "subscriber_content_filtering",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_lambda::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_lambda-269e1c6e227cd62c4a99.json",
+					"name" : "subscriber_lambda",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_member_function::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_member_function-82d7a49d05bfce063a72.json",
+					"name" : "subscriber_member_function",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_member_function_with_topic_statistics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_member_function_with_topic_statistics-0f793a24f71480d36b23.json",
+					"name" : "subscriber_member_function_with_topic_statistics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_member_function_with_type_adapter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_member_function_with_type_adapter-aa6f9a06f5689f4441be.json",
+					"name" : "subscriber_member_function_with_type_adapter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_member_function_with_unique_network_flow_endpoints::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_member_function_with_unique_network_flow_endpoints-99a12085ce3e84a157d7.json",
+					"name" : "subscriber_member_function_with_unique_network_flow_endpoints",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "subscriber_not_composable::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-subscriber_not_composable-94d3b54fe22c0fad4d71.json",
+					"name" : "subscriber_not_composable",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "time_triggered_wait_set_subscriber::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-time_triggered_wait_set_subscriber-180ebd4d0d0c43bf32ab.json",
+					"name" : "time_triggered_wait_set_subscriber",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-b722ddd8b794f2065080.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wait_set_subscriber::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wait_set_subscriber-81e8d292ff30bb9c4dfb.json",
+					"name" : "wait_set_subscriber",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wait_set_subscriber_library::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wait_set_subscriber_library-e0deaad872192df3e851.json",
+					"name" : "wait_set_subscriber_library",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/guy/ros2_ws/build/examples_rclcpp_minimal_subscriber",
+		"source" : "/home/guy/ros2_ws/src/examples/rclcpp/topics/minimal_subscriber"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

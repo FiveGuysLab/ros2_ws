@@ -1,0 +1,2 @@
+Invoking command in '/home/guy/ros2_ws/build/pubsub_node': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/guy/ros2_ws/build/pubsub_node -- -j6 -l6
+Invoked command in '/home/guy/ros2_ws/build/pubsub_node' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/guy/ros2_ws/build/pubsub_node -- -j6 -l6

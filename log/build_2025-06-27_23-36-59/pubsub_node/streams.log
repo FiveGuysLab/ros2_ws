@@ -1,0 +1,25 @@
+[0.782s] Invoking command in '/home/guy/ros2_ws/build/pubsub_node': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/guy/ros2_ws/build/pubsub_node -- -j6 -l6
+[1.096s] [ 50%] [32mBuilding CXX object CMakeFiles/minimal_pubsub.dir/src/main.cpp.o[0m
+[22.939s] [100%] [32m[1mLinking CXX executable minimal_pubsub[0m
+[23.902s] [100%] Built target minimal_pubsub
+[23.928s] Invoked command in '/home/guy/ros2_ws/build/pubsub_node' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/guy/ros2_ws/build/pubsub_node -- -j6 -l6
+[23.929s] Invoking command in '/home/guy/ros2_ws/build/pubsub_node': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/guy/ros2_ws/build/pubsub_node
+[23.943s] -- Install configuration: ""
+[23.944s] -- Installing: /home/guy/ros2_ws/install/pubsub_node/lib/pubsub_node/minimal_pubsub
+[23.953s] -- Set runtime path of "/home/guy/ros2_ws/install/pubsub_node/lib/pubsub_node/minimal_pubsub" to ""
+[23.953s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/ament_index/resource_index/package_run_dependencies/pubsub_node
+[23.953s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/ament_index/resource_index/parent_prefix_path/pubsub_node
+[23.954s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/environment/ament_prefix_path.sh
+[23.954s] -- Installing: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/environment/ament_prefix_path.dsv
+[23.954s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/environment/path.sh
+[23.955s] -- Installing: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/environment/path.dsv
+[23.955s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/local_setup.bash
+[23.959s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/local_setup.sh
+[23.959s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/local_setup.zsh
+[23.959s] -- Installing: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/local_setup.dsv
+[23.960s] -- Installing: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/package.dsv
+[23.960s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/ament_index/resource_index/packages/pubsub_node
+[23.960s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/cmake/pubsub_nodeConfig.cmake
+[23.960s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/cmake/pubsub_nodeConfig-version.cmake
+[23.960s] -- Up-to-date: /home/guy/ros2_ws/install/pubsub_node/share/pubsub_node/package.xml
+[23.960s] Invoked command in '/home/guy/ros2_ws/build/pubsub_node' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/guy/ros2_ws/build/pubsub_node
