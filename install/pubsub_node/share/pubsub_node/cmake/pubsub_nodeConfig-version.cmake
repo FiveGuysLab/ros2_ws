@@ -1,1 +1,0 @@
-/home/guy/ros2_ws/build/pubsub_node/ament_cmake_core/pubsub_nodeConfig-version.cmake

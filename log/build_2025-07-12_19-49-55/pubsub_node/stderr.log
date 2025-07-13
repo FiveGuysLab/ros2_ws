@@ -1,5 +1,0 @@
-In file included from [01m[K/home/guy/ros2_ws/src/pubsub_node/src/main.cpp:2[m[K:
-[01m[K/home/guy/ros2_ws/src/pubsub_node/src/../include/minimal_subscriber.hpp:[m[K In member function ‘[01m[Kvoid MinimalSubscriber::topic_callback(std_msgs::msg::String_<std::allocator<void> >::SharedPtr) const[m[K’:
-[01m[K/home/guy/ros2_ws/src/pubsub_node/src/../include/minimal_subscriber.hpp:18:62:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kmsg[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
-   18 |   void topic_callback([01;35m[Kconst std_msgs::msg::String::SharedPtr msg[m[K) const
-      |                       [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~[m[K
