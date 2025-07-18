@@ -21,6 +21,14 @@ private:
   void topic_callback(const std_msgs::msg::String::SharedPtr msg, int subscriber_id);
   void minimal_processing(const std::string& data);
 
+  void busy_wait_5ms() {
+      auto start = std::chrono::high_resolution_clock::now();
+      while (std::chrono::duration_cast<std::chrono::milliseconds>(
+                 std::chrono::high_resolution_clock::now() - start).count() < 5) {
+          // Busy wait
+      }
+  }
+
   std::vector<rclcpp::Subscription<std_msgs::msg::String>::SharedPtr> subscriptions_;
   std::vector<size_t> message_counts_;
   mutable std::mutex counts_mutex_;

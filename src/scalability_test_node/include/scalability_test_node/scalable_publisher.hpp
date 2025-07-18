@@ -12,7 +12,7 @@ using namespace std::chrono_literals;
 class ScalablePublisher : public rclcpp::Node
 {
 public:
-  ScalablePublisher(int num_publishers = 1, std::chrono::milliseconds publish_interval = 100ms);
+  ScalablePublisher(int num_publishers = 1, std::chrono::milliseconds publish_interval = 1ms);
 
 private:
   void timer_callback();
