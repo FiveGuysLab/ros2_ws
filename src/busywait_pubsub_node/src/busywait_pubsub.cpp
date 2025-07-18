@@ -2,7 +2,10 @@
 #include "../include/busywait_pubsub_node/busywait_subscriber.hpp"
 
 #include <rclcpp/rclcpp.hpp>
-#include <rclcpp/executors/single_threaded_executor.hpp>
+// Comment out the standard executor include
+// #include <rclcpp/executors/single_threaded_executor.hpp>
+// Add the custom executor include
+#include "priority_executor/default_executor.hpp"
 
 int main(int argc, char * argv[])
 {
@@ -11,7 +14,10 @@ int main(int argc, char * argv[])
   auto publisher_node = std::make_shared<BusywaitPublisher>();
   auto subscriber_node = std::make_shared<BusywaitSubscriber>();
 
-  rclcpp::executors::SingleThreadedExecutor executor;
+  // Comment out the standard executor
+  // rclcpp::executors::SingleThreadedExecutor executor;
+  // Use the custom executor instead
+  ROSDefaultExecutor executor;
   executor.add_node(publisher_node);
   executor.add_node(subscriber_node);
 

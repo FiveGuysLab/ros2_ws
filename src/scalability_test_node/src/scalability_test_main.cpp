@@ -2,7 +2,10 @@
 #include "../include/scalability_test_node/scalable_subscriber.hpp"
 
 #include <rclcpp/rclcpp.hpp>
-#include <rclcpp/executors/single_threaded_executor.hpp>
+// Comment out the standard executor include
+// #include <rclcpp/executors/single_threaded_executor.hpp>
+// Add the custom executor include
+#include "priority_executor/default_executor.hpp"
 #include <iostream>
 #include <csignal>
 #include <memory>
@@ -88,7 +91,10 @@ int main(int argc, char * argv[])
   g_subscriber = std::make_shared<ScalableSubscriber>(num_subscribers, enable_processing);
   
   // Create executor
-  rclcpp::executors::SingleThreadedExecutor executor;
+  // Comment out the standard executor
+  // rclcpp::executors::SingleThreadedExecutor executor;
+  // Use the custom executor instead
+  ROSDefaultExecutor executor;
   executor.add_node(g_publisher);
   executor.add_node(g_subscriber);
   
