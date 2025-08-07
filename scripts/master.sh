@@ -5,17 +5,16 @@
 
 # Define the array of script names (without .sh extension)
 scripts=(
-  "scalability_test_node"
-  "busywait_pubsub_node"
-  "busywait_pubsub_node_wo_timer"
-  "busywait_priority_node"
-  "pubsub_node"
+  # "busy_wait_priority"
+  # "busy_wait"
+  "scalability_tests"
+  "scalability_priority_tests"
   # Add more script names as needed
 )
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SCRIPTS_DIR="$SCRIPT_DIR/scripts"
+SCRIPTS_DIR="$SCRIPT_DIR"
 
 echo "=== Master Test Runner ==="
 echo "Scripts directory: $SCRIPTS_DIR"
