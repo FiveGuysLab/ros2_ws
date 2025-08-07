@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>busywait_pubsub_node</name>
+  <name>scalability_priority_test_node</name>
   <version>0.0.0</version>
-  <description>A ROS2 node with publisher-subscriber where subscriber busy waits longer than publisher period</description>
-  <maintainer email="edpravee@uwaterloo.ca">guy</maintainer>
+  <description>A ROS 2 node for testing scalability with multiple publishers and subscribers using the priority executor.</description>
+  <maintainer email="guy@example.com">guy</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -19,4 +18,4 @@
   <export>
     <build_type>ament_cmake</build_type>
   </export>
-</package>
+</package> 

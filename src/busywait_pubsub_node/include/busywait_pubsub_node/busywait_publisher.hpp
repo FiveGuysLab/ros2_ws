@@ -3,7 +3,7 @@
 #include <chrono>
 #include <memory>
 #include <string>
-#include <rclcpp/rclcpp.hpp>
+#include "rclcpp/rclcpp.hpp"
 #include <std_msgs/msg/string.hpp>
 
 using namespace std::chrono_literals;
@@ -14,11 +14,11 @@ public:
   BusywaitPublisher() : Node("busywait_publisher"), count_(0)
   {
     publisher_ = this->create_publisher<std_msgs::msg::String>("busywait_topic", 10);
-    // Publish every 1ms - this will be our baseline publishing rate
+    // Publish every 15ms - this will be our baseline publishing rate
     timer_ = this->create_wall_timer(
-      1ms, std::bind(&BusywaitPublisher::timer_callback, this));
-    
-    RCLCPP_INFO(this->get_logger(), "BusywaitPublisher initialized - publishing every 1ms");
+      15ms, std::bind(&BusywaitPublisher::timer_callback, this));
+
+    RCLCPP_INFO(this->get_logger(), "BusywaitPublisher initialized - publishing every 15ms");
   }
 
 private:

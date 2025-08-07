@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>busywait_pubsub_node_wo_timer</name>
+  <name>pairtalk</name>
   <version>0.0.0</version>
   <description>A ROS2 node with publisher-subscriber where subscriber busy waits longer than publisher period</description>
   <maintainer email="edpravee@uwaterloo.ca">guy</maintainer>
@@ -11,7 +11,7 @@
 
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
-  <depend>std_srvs</depend>
+  <depend>priority_executor</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "rclcpp/rclcpp.hpp"
+#include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
 using namespace std::chrono_literals;
@@ -13,6 +13,7 @@ class ScalablePublisher : public rclcpp::Node
 {
 public:
   ScalablePublisher(int num_publishers = 1, std::chrono::milliseconds publish_interval = 1ms);
+  std::vector<rclcpp::TimerBase::SharedPtr> get_timers() const { return {timer_}; }
 
 private:
   void timer_callback();

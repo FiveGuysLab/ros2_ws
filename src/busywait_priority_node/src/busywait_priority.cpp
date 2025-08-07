@@ -1,7 +1,7 @@
 #include "../include/busywait_priority_node/busywait_publisher.hpp"
 #include "../include/busywait_priority_node/busywait_subscriber.hpp"
 
-#include <rclcpp/rclcpp.hpp>
+#include "rclcpp/rclcpp.hpp"
 #include "priority_executor/priority_executor.hpp"
 #include "priority_executor/priority_memory_strategy.hpp"
 
@@ -38,19 +38,6 @@ int main(int argc, char * argv[])
   // Mark publisher timer as first in chain
   strategy->set_first_in_chain(publisher_node->timer_->get_timer_handle());
 
-  // Configure priority settings for subscriber 
-  // Set deadline of 5ms (5000 microseconds) for the subscriber timer
-  strategy->set_executable_deadline(
-    subscriber_node->timer_->get_timer_handle(),
-    5000, // 5ms period in microseconds
-    TIMER,
-    0 // chain_id
-  );
-  
-  // Set timer handle for the subscriber (required for chain management)
-  strategy->get_priority_settings(subscriber_node->timer_->get_timer_handle())
-    ->timer_handle = subscriber_node->timer_;
-
   // Configure priority settings for subscriber subscription
   strategy->set_executable_deadline(
     subscriber_node->subscription_->get_subscription_handle(),
@@ -73,9 +60,6 @@ int main(int argc, char * argv[])
   // Print priority settings for debugging
   std::cout << "Publisher Timer Priority Settings:\n" 
             << *strategy->get_priority_settings(publisher_node->timer_->get_timer_handle()) 
-            << std::endl;
-  std::cout << "Subscriber Timer Priority Settings:\n" 
-            << *strategy->get_priority_settings(subscriber_node->timer_->get_timer_handle()) 
             << std::endl;
   std::cout << "Subscriber Subscription Priority Settings:\n" 
             << *strategy->get_priority_settings(subscriber_node->subscription_->get_subscription_handle()) 

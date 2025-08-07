@@ -1,27 +1,16 @@
-#include "../include/scalability_test_node/scalable_publisher.hpp"
-#include "../include/scalability_test_node/scalable_subscriber.hpp"
+#include "scalability_priority_test_node/scalable_subscriber.hpp"
+#include "scalability_priority_test_node/scalable_publisher.hpp"
 
 #include "rclcpp/rclcpp.hpp"
-// Comment out the standard executor include
-// #include <rclcpp/executors/single_threaded_executor.hpp>
-// Add the custom executor include
-#include "priority_executor/default_executor.hpp"
+#include "priority_executor/priority_executor.hpp"
+#include "priority_executor/priority_memory_strategy.hpp"
 #include <iostream>
 #include <csignal>
 #include <memory>
 #include <thread>
 
-// Global variables for signal handling
 std::shared_ptr<ScalableSubscriber> g_subscriber;
 std::shared_ptr<ScalablePublisher> g_publisher;
-volatile sig_atomic_t g_shutdown_requested = 0;
-
-void signal_handler(int signal)
-{
-  (void)signal;
-  g_shutdown_requested = 1;
-  std::cout << "\nShutdown requested..." << std::endl;
-}
 
 void print_usage(const char* program_name)
 {
@@ -38,17 +27,14 @@ void print_usage(const char* program_name)
 
 int main(int argc, char * argv[])
 {
-  // Default parameters
   int num_publishers = 1;
   int num_subscribers = 5;
   int publish_interval_ms = 100;
   bool enable_processing = false;
-  int test_duration_sec = -1;  // -1 means infinite duration
+  int test_duration_sec = -1;
   
-  // Parse command line arguments
   for (int i = 1; i < argc; ++i) {
     std::string arg = argv[i];
-    
     if (arg == "--help") {
       print_usage(argv[0]);
       return 0;
@@ -69,12 +55,10 @@ int main(int argc, char * argv[])
     }
   }
   
-  // Validate parameters
   if (num_publishers <= 0 || num_subscribers <= 0 || publish_interval_ms <= 0) {
     std::cerr << "Error: Publishers, subscribers, and interval must be positive." << std::endl;
     return 1;
   }
-  
   if (test_duration_sec == 0) {
     std::cerr << "Error: Duration must be positive or omitted for infinite duration." << std::endl;
     return 1;
@@ -82,24 +66,47 @@ int main(int argc, char * argv[])
   
   rclcpp::init(argc, argv);
   
-  // Set up signal handler
-  signal(SIGINT, signal_handler);
-  
-  // Create nodes
-  g_publisher = std::make_shared<ScalablePublisher>(
-    num_publishers, std::chrono::milliseconds(publish_interval_ms));
+  g_publisher = std::make_shared<ScalablePublisher>(num_publishers, std::chrono::milliseconds(publish_interval_ms));
   g_subscriber = std::make_shared<ScalableSubscriber>(num_subscribers, enable_processing);
   
-  // Create executor
-  // Comment out the standard executor
-  // rclcpp::executors::SingleThreadedExecutor executor;
-  // Use the custom executor instead
-  ROSDefaultExecutor executor;
-  executor.add_node(g_publisher);
-  executor.add_node(g_subscriber);
+  // Set up the priority executor with priority memory strategy
+  rclcpp::ExecutorOptions options;
+  auto strategy = std::make_shared<PriorityMemoryStrategy<>>();
+  options.memory_strategy = strategy;
+  auto executor = std::make_unique<timed_executor::TimedExecutor>(options, "scalability_priority_executor");
+  executor->prio_memory_strategy_ = strategy;
+
+  // Set priorities for all publisher timers
+  for (const auto& timer : g_publisher->get_timers()) {
+    strategy->set_executable_deadline(
+      timer->get_timer_handle(),
+      publish_interval_ms * 1000, // microseconds
+      TIMER,
+      0 // chain_id
+    );
+    strategy->get_priority_settings(timer->get_timer_handle())->timer_handle = timer;
+    strategy->set_first_in_chain(timer->get_timer_handle());
+  }
+
+  // Set static priorities for all subscriber subscriptions
+  int high_priority = 2;
+  int low_priority = 1;
+  int num_high = num_subscribers / 4; // 25% get high priority
+  for (size_t i = 0; i < g_subscriber->get_subscriptions().size(); ++i) {
+    auto sub = g_subscriber->get_subscriptions()[i];
+    int prio = (i < static_cast<size_t>(num_high)) ? high_priority : low_priority;
+    strategy->set_executable_priority(
+      sub->get_subscription_handle(),
+      prio,
+      SUBSCRIPTION
+    );
+    strategy->set_last_in_chain(sub->get_subscription_handle());
+  }
+
+  executor->add_node(g_publisher);
+  executor->add_node(g_subscriber);
   
-  // Print configuration
-  std::cout << "\n=== Scalability Test Configuration ===" << std::endl;
+  std::cout << "\n=== Scalability Priority Test Configuration ===" << std::endl;
   std::cout << "Publishers: " << num_publishers << std::endl;
   std::cout << "Subscribers: " << num_subscribers << std::endl;
   std::cout << "Publishing interval: " << publish_interval_ms << " ms" << std::endl;
@@ -109,58 +116,38 @@ int main(int argc, char * argv[])
   } else {
     std::cout << "Test duration: infinite (press Ctrl+C to stop)" << std::endl;
   }
-  std::cout << "=======================================" << std::endl;
+  std::cout << "===============================================" << std::endl;
   
-  RCLCPP_INFO(rclcpp::get_logger("scalability_test"), "Starting scalability test...");
+  RCLCPP_INFO(rclcpp::get_logger("scalability_priority_test"), "Starting scalability priority test...");
   
-  // Run test
   auto start_time = std::chrono::high_resolution_clock::now();
   std::chrono::high_resolution_clock::time_point end_time;
   bool has_duration = test_duration_sec > 0;
-  
-  if (has_duration) {
-    end_time = start_time + std::chrono::seconds(test_duration_sec);
-  }
 
-  executor.spin();
+  executor->spin();
 
-  // Print final statistics
   auto final_time = std::chrono::high_resolution_clock::now();
   auto total_elapsed = std::chrono::duration_cast<std::chrono::seconds>(final_time - start_time);
-  
   std::cout << "\n=== Final Test Results ===" << std::endl;
   std::cout << "Total runtime: " << total_elapsed.count() << " seconds" << std::endl;
   std::cout << "Total messages received: " << g_subscriber->get_total_messages_received() << std::endl;
-  
-  // Print per-subscriber statistics
   auto per_subscriber_counts = g_subscriber->get_per_subscriber_counts();
   std::cout << "Per-subscriber message counts:" << std::endl;
   for (int i = 0; i < static_cast<int>(per_subscriber_counts.size()); ++i) {
     std::cout << "  Subscriber " << i << ": " << per_subscriber_counts[i] << " messages" << std::endl;
   }
-  
-  // Proper cleanup sequence
   std::cout << "Cleaning up..." << std::endl;
-  
-  // Cancel executor to stop any pending operations
   std::cout << "Canceling executor..." << std::endl;
-  executor.cancel();
-
-  // Remove nodes from executor first
+  executor->cancel();
   std::cout << "Removing nodes from executor..." << std::endl;
-  executor.remove_node(g_publisher);
-  executor.remove_node(g_subscriber);
-  
-  // Reset shared pointers to trigger proper destruction
+  executor->remove_node(g_publisher);
+  executor->remove_node(g_subscriber);
   std::cout << "Resetting publisher..." << std::endl;
   g_publisher.reset();
   std::cout << "Resetting subscriber..." << std::endl;
   g_subscriber.reset();
-  
-  // Small delay to allow cleanup
   std::cout << "Waiting for cleanup to complete..." << std::endl;
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  
   std::cout << "Shutting down ROS..." << std::endl;
   rclcpp::shutdown();
   std::cout << "Cleanup complete." << std::endl;

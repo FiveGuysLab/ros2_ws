@@ -5,7 +5,7 @@
 #include <vector>
 #include <atomic>
 #include <mutex>
-#include "rclcpp/rclcpp.hpp"
+#include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
 class ScalableSubscriber : public rclcpp::Node
@@ -16,6 +16,7 @@ public:
   // Statistics getters
   size_t get_total_messages_received() const;
   std::vector<size_t> get_per_subscriber_counts() const;
+  const std::vector<rclcpp::Subscription<std_msgs::msg::String>::SharedPtr>& get_subscriptions() const { return subscriptions_; }
 
 private:
   void topic_callback(const std_msgs::msg::String::SharedPtr msg, int subscriber_id);
