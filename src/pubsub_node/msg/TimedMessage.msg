@@ -1,0 +1,3 @@
+string uuid
+builtin_interfaces/Time timestamp
+string data 

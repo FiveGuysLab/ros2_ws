@@ -11,18 +11,38 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(priority_executor REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+
+# Generate messages
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/TimedMessage.msg"
+  DEPENDENCIES builtin_interfaces
+)
+
+# Find UUID library
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(UUID REQUIRED uuid)
 
 add_executable(minimal_pubsub src/main.cpp)
 target_include_directories(minimal_pubsub PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${UUID_INCLUDE_DIRS}
+)
 target_compile_features(minimal_pubsub PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_link_libraries(minimal_pubsub ${UUID_LIBRARIES})
+
+# Enable message generation for this target
+rosidl_target_interfaces(minimal_pubsub ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
 ament_target_dependencies(
   minimal_pubsub
   "rclcpp"
   "std_msgs"
   "std_srvs"
   "priority_executor"
+  "builtin_interfaces"
 )
 
 install(TARGETS minimal_pubsub
