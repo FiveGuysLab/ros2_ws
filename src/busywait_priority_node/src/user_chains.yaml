@@ -1,0 +1,5 @@
+chains:
+  first_chain: 
+    callbacks: ["timer", "subscriber"]
+    deadline: 10
+    period: 15

@@ -9,20 +9,20 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(priority_executor REQUIRED)
-find_package(simple_timer REQUIRED)
+find_package(preemptive_executor REQUIRED)
+# find_package(simple_timer REQUIRED)
 
 add_executable(busywait_priority src/busywait_priority.cpp)
 target_include_directories(busywait_priority PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(busywait_priority PUBLIC c_std_99 cxx_std_17)
+target_compile_features(busywait_priority PUBLIC c_std_99 cxx_std_20)
 ament_target_dependencies(
   busywait_priority
   "rclcpp"
   "std_msgs"
-  "priority_executor"
-  "simple_timer"
+  "preemptive_executor"
+  # "simple_timer"
 )
 
 install(TARGETS busywait_priority

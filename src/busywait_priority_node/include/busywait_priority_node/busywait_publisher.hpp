@@ -5,6 +5,7 @@
 #include <string>
 #include "rclcpp/rclcpp.hpp"
 #include <std_msgs/msg/string.hpp>
+#include "preemptive_executor/callback_registry.hpp"
 
 using namespace std::chrono_literals;
 
@@ -20,7 +21,10 @@ public:
     // Publish every 15ms - this will be our baseline publishing rate
     timer_ = this->create_wall_timer(
       15ms, std::bind(&BusywaitPublisher::timer_callback, this));
-
+    // preemptive_executor::CallbackRegistry::register_callback_name(preemptive_executor::CallbackEntity(
+    //   publisher_), "publisher");
+    preemptive_executor::CallbackRegistry::register_callback_name(preemptive_executor::CallbackEntity(
+      timer_), "timer");
     RCLCPP_INFO(this->get_logger(), "BusywaitPublisher initialized - publishing every 15ms");
   }
 

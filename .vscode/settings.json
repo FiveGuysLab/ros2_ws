@@ -69,5 +69,8 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "C_Cpp.default.includePath": [
+        "/home/fiveguys/fydp/ros2_humble/install/preemptive_executor/include/preemptive_executor/pre emptive_executor"
+    ]
 }

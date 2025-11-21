@@ -4,6 +4,8 @@
 #include <chrono>
 #include "rclcpp/rclcpp.hpp"
 #include <std_msgs/msg/string.hpp>
+#include "preemptive_executor/preemptive_executor.hpp"
+#include "preemptive_executor/callback_registry.hpp"
 
 using namespace std::chrono_literals;
 
@@ -28,8 +30,9 @@ public:
     subscription_ = this->create_subscription<std_msgs::msg::String>(
       "busywait_topic", 10,
       std::bind(&BusywaitSubscriber::topic_callback, this, std::placeholders::_1));
-
-    RCLCPP_INFO(this->get_logger(), "BusywaitSubscriber initialized - busy waiting every 5ms");
+      preemptive_executor::CallbackRegistry::register_callback_name(preemptive_executor::CallbackEntity(
+        subscription_), "subscriber");
+      RCLCPP_INFO(this->get_logger(), "BusywaitSubscriber initialized - busy waiting every 5ms");
   }
 
 private:
@@ -38,9 +41,9 @@ private:
     // Store the latest message and mark that we received one
     latest_message_ = msg->data;
     last_message_received_ = true;
-    RCLCPP_DEBUG(this->get_logger(), "Received message: '%s'", msg->data.c_str());
+    RCLCPP_INFO(this->get_logger(), "Received message: '%s'", msg->data.c_str());
 
-    little_sleep(40ms);
+    little_sleep(7ms);
   }
 
   std::string latest_message_;
